@@ -1,4 +1,6 @@
-public abstract class Instrument {
+import java.util.Objects;
+
+public abstract class Instrument implements Comparable<Instrument> {
 	
 	private String name;
 	protected int warranty; 
@@ -29,4 +31,21 @@ public abstract class Instrument {
 			return "The instrument is not under an extended warranty";
 	}
 
+	@Override
+	public int compareTo(Instrument o) {
+		return name.compareTo(o.name);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Instrument that = (Instrument) o;
+		return Objects.equals(name, that.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
 }

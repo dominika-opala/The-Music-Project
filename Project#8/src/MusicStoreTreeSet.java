@@ -69,9 +69,12 @@ public class MusicStoreTreeSet {
 	}
 
 	public void remove(Instrument instrument) {
-		for (Instrument item: treeSet) {
+		Iterator<Instrument> treeSetIterator = treeSet.iterator();
+		Instrument item;
+		while ( treeSetIterator.hasNext()) {
+			item = treeSetIterator.next();
 			if (item.getName().equals(instrument.getName())) {
-				treeSet.remove(instrument);
+				treeSetIterator.remove();
 			}
 		}
 	}
