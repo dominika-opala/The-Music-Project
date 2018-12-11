@@ -12,8 +12,7 @@ public class Officer extends Employee{
 	}
 	
 	@Override public float pay() {
-		float pay = (basePay + bonus * basePay) * getContract();
-		return pay;
+		return (basePay + bonus * basePay) * getContract();
 	}
 	
 	public String toString() {

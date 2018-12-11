@@ -41,24 +41,24 @@ public class Company {
 	}
 
 	public String toString() {
-		String string = "{ ";
+		StringBuilder string = new StringBuilder("{ ");
 		for (int i = 0; i < employees.length; i++) {
 			if (employees[i] != null) {
-				string += employees[i].getSurname() + ", ";
+				string.append(employees[i].getSurname()).append(", ");
 			}
 		}
 		return "The list of employees in the company: " + string + "}";
 	}
 
-	public Employee callingEmployeeBySurname(Employee employee) {
+	public Employee findEmployeeBySurname(String surname) {
 		// znajdź Pracownika o podanym nazwisku (wynikiem powinna być referencja do
 		// obiektu)
 		for (int i = 0; i < employees.length; i++) {
-			if (employees[i]!=null && employees[i].getSurname().equals(employee.getSurname())) {
-				return employee;
+			if (employees[i]!=null && employees[i].getSurname().equals(surname)) {
+				return employees[i];
 			}
 		}
-		throw null;
+		return null;
 	}
 
 	public String numberOfHiredEmployees() {
@@ -77,9 +77,9 @@ public class Company {
 			}
 		}
 
-		String string = "{ ";
+		StringBuilder string = new StringBuilder("{ ");
 		for (int i = 0; i < employed.length; i++) {
-			string += employed[i] + ",";
+			string.append(employed[i]).append(",");
 		}
 		return "The list of employees in the company (officers, workers): " + string + "}";
 
@@ -87,23 +87,18 @@ public class Company {
 
 	public String sumOfSalary() {
 		// TODO print out a sum of all the salaries earned by officers/workers/employees
-		float sumEmployee = 0;
 		float sumOfficer = 0;
 		float sumWorker = 0;
 		for (int i = 0; i < employees.length; i++) {
 			// Employee currentEmployee = employees[i]; FROM KRK
 			if (employees[i] instanceof Officer) {
-				// We know the currentEmployee is an Officer but we need to cast it to use
-				// methods from the Officer class.
-				sumOfficer += ((Officer) employees[i]).pay();
-				sumEmployee += ((Officer) employees[i]).pay();
+				sumOfficer += employees[i].pay();
 			} else if (employees[i] instanceof Worker) {
-				sumWorker += ((Worker) employees[i]).pay();
-				sumEmployee += ((Worker) employees[i]).pay();
+				sumWorker += employees[i].pay();
 			}
 		}
 
-		return "The sum of salaries earned by all the employees: " + sumEmployee + ", officers: " + sumOfficer
+		return "The sum of salaries earned by all the employees: " + (sumOfficer + sumWorker) + ", officers: " + sumOfficer
 				+ ", workers: " + sumWorker;
 	}
 
@@ -164,7 +159,7 @@ public class Company {
 
 		System.out.println();
 		company.arrayList(2);
-		
-		company.callingEmployeeBySurname(smith);
+
+		System.out.println(company.findEmployeeBySurname("Smith"));
 	}
 }

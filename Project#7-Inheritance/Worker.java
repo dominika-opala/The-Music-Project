@@ -25,9 +25,8 @@ public class Worker extends Employee{
 		if (hours >= LIMIT) {
 			extrahours = hours - LIMIT;
 			hours = LIMIT;
-		} 
-		float wage = (hours * rate) + (extrahours * 1.5f * rate); // f indicates that it's a float
-		return wage;
+		}
+		return (hours * rate) + (extrahours * 1.5f * rate);
 	}
 	
 	public String toString() {
