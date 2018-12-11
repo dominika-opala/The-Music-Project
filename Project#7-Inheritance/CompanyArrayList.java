@@ -76,7 +76,6 @@ public class CompanyArrayList {
 
 	public String sumOfSalary() {
 		// TODO print out a sum of all the salaries earned by officers/workers/employees
-		float sumEmployee = 0;
 		float sumOfficer = 0;
 		float sumWorker = 0;
 		for (int i = 0; i < arrayList.size(); i++) {
@@ -85,14 +84,12 @@ public class CompanyArrayList {
 				// We know the currentEmployee is an Officer but we need to cast it to use
 				// methods from the Officer class.
 				sumOfficer += arrayList.get(i).pay();
-				sumEmployee += arrayList.get(i).pay();
 			} else if (arrayList.get(i) instanceof Worker) {
 				sumWorker += arrayList.get(i).pay();
-				sumEmployee += arrayList.get(i).pay();
 			}
 		}
 
-		return "The sum of salaries earned by all the employees: " + sumEmployee + ", officers: " + sumOfficer
+		return "The sum of salaries earned by all the employees: " + (sumOfficer + sumWorker) + ", officers: " + sumOfficer
 				+ ", workers: " + sumWorker;
 	}
 
