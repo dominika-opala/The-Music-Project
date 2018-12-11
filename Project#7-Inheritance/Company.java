@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class Company {
 	
 	// 7b. Co i jak należy zmienić aby uwzględnić wymaganie, że tablica Pracowników powinna być uporządkowana
@@ -22,6 +25,7 @@ public class Company {
 		for (int i = 0; i < employees.length; i++) {
 			if (employees[i] == null) { // && !employees[i].getSurname().equals(employee.getSurname())
 				employees[i] = employee;
+				Arrays.sort(employees, Comparator.nullsLast(Comparator.comparing(Employee::getSurname)));
 				return; // "return" terminates the execution of the method.
 			}
 		}
@@ -50,7 +54,7 @@ public class Company {
 		// znajdź Pracownika o podanym nazwisku (wynikiem powinna być referencja do
 		// obiektu)
 		for (int i = 0; i < employees.length; i++) {
-			if (employees[i].getSurname().equals(employee.getSurname())) { 
+			if (employees[i]!=null && employees[i].getSurname().equals(employee.getSurname())) {
 				return employee;
 			}
 		}
