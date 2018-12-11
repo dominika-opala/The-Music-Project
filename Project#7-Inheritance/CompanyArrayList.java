@@ -7,12 +7,14 @@ public class CompanyArrayList {
 	public CompanyArrayList(int employeeNumber) {
 		this.arrayList = new ArrayList<Employee>(employeeNumber);
 	}
+
 	public String hire(Employee employee) { // the object of this class will be generated in the "main" method.
 		for (int i = 0; i < arrayList.size(); i++) {
 			if (arrayList.get(i).getSurname().equals(employee.getSurname())) {
 				return "The person of the surname " + employee.getSurname() + " is already working for the company" ; // "return" terminates the execution of the method.
 			} 
-		} arrayList.add(employee);
+		}
+		arrayList.add(employee);
 		return "Hired"; // "return" terminates the execution of the method.
 	}
 
@@ -26,13 +28,22 @@ public class CompanyArrayList {
 		return "The person of the" + employee.getSurname() + " surname doesn't work in the company";
 	}
 
-	public String toString() {
-		String string = "{ ";
+	public Employee findEmployeeBySurname(String surname) {
+		// znajdź Pracownika o podanym nazwisku (wynikiem powinna być referencja do
+		// obiektu)
 		for (int i = 0; i < arrayList.size(); i++) {
-			if (!arrayList.isEmpty()) {
-				string += arrayList.get(i).getSurname() + " , "; 
-				
+			Employee employee = arrayList.get(i);
+			if (employee !=null && employee.getSurname().equals(surname)) {
+				return employee;
 			}
+		}
+		return null;
+	}
+
+	public String toString() {
+		StringBuilder string = new StringBuilder("{ ");
+		for (int i = 0; i < arrayList.size(); i++) {
+			string.append(arrayList.get(i).getSurname()).append(" , ");
 		}
 		return "The list of employees in the company: " + string + "}";
 	}
@@ -44,22 +55,20 @@ public class CompanyArrayList {
 		employed.add(n);
 		employed.add(m);
 		for (int i = 0; i < arrayList.size(); i++) {
-			if (!arrayList.isEmpty()) {
-				if (arrayList.get(i) instanceof Officer) { // The java "instanceof" operator is used to test whether the
-														// object is an instance of the specified type (class or
-														// subclass or interface).
-					n = n + 1; // increment value
-					employed.set(0, n);
-				} else {
-					m = m + 1;
-					employed.set(1, m); 
-				}
+			if (arrayList.get(i) instanceof Officer) { // The java "instanceof" operator is used to test whether the
+													// object is an instance of the specified type (class or
+													// subclass or interface).
+				n = n + 1; // increment value
+				employed.set(0, n);
+			} else {
+				m = m + 1;
+				employed.set(1, m);
 			}
 		}
 
-		String string = "{ ";
+		StringBuilder string = new StringBuilder("{ ");
 		for (int i = 0; i < employed.size(); i++) {
-			string += employed.get(i) + ",";
+			string.append(employed.get(i)).append(",");
 		}
 		return "The list of employees in the company (officers, workers): " + string + "}";
 
@@ -67,7 +76,6 @@ public class CompanyArrayList {
 
 	public String sumOfSalary() {
 		// TODO print out a sum of all the salaries earned by officers/workers/employees
-		float sumEmployee = 0;
 		float sumOfficer = 0;
 		float sumWorker = 0;
 		for (int i = 0; i < arrayList.size(); i++) {
@@ -75,15 +83,13 @@ public class CompanyArrayList {
 			if (arrayList.get(i) instanceof Officer) {
 				// We know the currentEmployee is an Officer but we need to cast it to use
 				// methods from the Officer class.
-				sumOfficer += ((Officer) arrayList.get(i)).pay();
-				sumEmployee += ((Officer) arrayList.get(i)).pay();
+				sumOfficer += arrayList.get(i).pay();
 			} else if (arrayList.get(i) instanceof Worker) {
-				sumWorker += ((Worker) arrayList.get(i)).pay();
-				sumEmployee += ((Worker) arrayList.get(i)).pay();
+				sumWorker += arrayList.get(i).pay();
 			}
 		}
 
-		return "The sum of salaries earned by all the employees: " + sumEmployee + ", officers: " + sumOfficer
+		return "The sum of salaries earned by all the employees: " + (sumOfficer + sumWorker) + ", officers: " + sumOfficer
 				+ ", workers: " + sumWorker;
 	}
 
@@ -135,6 +141,8 @@ public class CompanyArrayList {
 		System.out.println(company.hire(major));
 		
 		System.out.println(company.toString());
+
+		System.out.println(company.findEmployeeBySurname("Smith"));
 		
 	}
 }

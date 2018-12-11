@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public abstract class Employee { // abstract means that I can't create a direct object of this class
 	// you need to specify what sort of employee that is (either an officer or a worker).
 	
@@ -27,4 +29,17 @@ public abstract class Employee { // abstract means that I can't create a direct 
 	public abstract float pay();
 
 	public abstract String group();
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Employee)) return false;
+		Employee employee = (Employee) o;
+		return surname.equals(employee.surname);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(surname);
+	}
 }
